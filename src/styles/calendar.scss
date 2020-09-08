@@ -2,6 +2,7 @@
   max-width: ($cell-width + $cellGap * 2) * $weekdays;
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
 
   div {
     width: $cell-width;
@@ -17,12 +18,12 @@
     align-items: center;
 
     transition-duration: 0.5s;
+    cursor: pointer;
   }
 
   & :hover {
     background-color: $background-color-hover;
     transform: translateY(-20px);
-    cursor: pointer;
   }
 
   $weekdays: (
