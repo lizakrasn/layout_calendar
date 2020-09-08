@@ -1,5 +1,5 @@
 .calendar {
-  max-width: ($cell-width + 2px) * $weekdays;
+  max-width: ($cell-width + $cellGap * 2) * $weekdays;
   display: flex;
   flex-wrap: wrap;
 
@@ -14,112 +14,48 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    transition-duration: 0.5s;
   }
 
   & :hover {
     background-color: $background-color-hover;
-    transition-duration: 0.5s;
     transform: translateY(-20px);
   }
 
-  &-mon {
-    :first-child {
-      margin-left: 0;
+  $weekdays: (
+    mon : 0,
+    tue : 1,
+    wed : 2,
+    thu : 3,
+    fri : 4,
+    sat : 5,
+    sun : 6
+  );
+
+  @each $name, $margin in $weekdays {
+    &-#{$name} {
+      :first-child {
+        margin-left: ($cell-width + $cellGap * 2) * $margin;
+      }
     }
   }
 
-  &-tue {
-    :first-child {
-      margin-left: $cell-width + 2px;
+  $days: 28, 29, 30;
+
+  @each $day in $days {
+    &-#{$day} {
+      @for $i from $day + 1 through 31 {
+        :nth-child(#{$i}) {
+          display: none;
+        }
+      }
     }
   }
 
-  &-wed {
-    :first-child {
-      margin-left: ($cell-width + 2px) * 2;
-    }
-  }
-
-  &-thu {
-    :first-child {
-      margin-left: ($cell-width + 2px) * 3;
-    }
-  }
-
-  &-fri {
-    :first-child {
-      margin-left: ($cell-width + 2px) * 4;
-    }
-  }
-
-  &-sat {
-    :first-child {
-      margin-left: ($cell-width + 2px) * 5;
-    }
-  }
-
-  &-sun {
-    :first-child {
-      margin-left: ($cell-width + 2px) * 6;
-    }
-  }
-
-  &-28 {
-    :last-child,
-    :nth-child(29),
-    :nth-child(30) {
-      display: none;
-    }
-  }
-
-  &-29 {
-    :last-child,
-    :nth-child(30) {
-      display: none;
-    }
-  }
-
-  &-30 {
-    :last-child {
-      display: none;
-    }
-  }
-
-  @mixin cell-number ($number) {
+  @for $number from 1 through 31 {
     :nth-child(#{$number})::after {
       content: "#{$number}";
     }
   }
-
-  @include cell-number(1);
-  @include cell-number(2);
-  @include cell-number(3);
-  @include cell-number(4);
-  @include cell-number(5);
-  @include cell-number(6);
-  @include cell-number(7);
-  @include cell-number(8);
-  @include cell-number(9);
-  @include cell-number(10);
-  @include cell-number(11);
-  @include cell-number(12);
-  @include cell-number(13);
-  @include cell-number(14);
-  @include cell-number(15);
-  @include cell-number(16);
-  @include cell-number(17);
-  @include cell-number(18);
-  @include cell-number(19);
-  @include cell-number(20);
-  @include cell-number(21);
-  @include cell-number(22);
-  @include cell-number(23);
-  @include cell-number(24);
-  @include cell-number(25);
-  @include cell-number(26);
-  @include cell-number(27);
-  @include cell-number(28);
-  @include cell-number(29);
-  @include cell-number(30);
-  @include cell-number(31);
 }
